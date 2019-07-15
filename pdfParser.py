@@ -2,8 +2,8 @@ import nltk
 from tika import parser
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-from tkinter import  *
+from nltk.tag import pos_tag
+
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -12,13 +12,34 @@ nltk.download('averaged_perceptron_tagger')
 
 
 
-file_path = "Data/Christy new CV.pdf"
+# file_path = "Data/Christy new CV.pdf"
 
-file_data = parser.from_file(file_path)
 
-text = file_data['content']
 
-print(text)
+# print(text)
+
+def findFilePath(file_path):
+    file_data = parser.from_file(file_path)
+
+
+    text = file_data['content']
+    tokens = tokenization(text)
+
+    print(tokens)
+
+    stop_words = set(stopwords.words('english'))
+    filtered_text = [w for w in tokens if not w in stop_words]
+    filtered_text = []
+
+    for w in tokens:
+        if w not in stop_words:
+            filtered_text.append(w)
+    print(filtered_text)
+    sent = posTagger(filtered_text)
+    print(sent)
+    return text
+
+
 
 def tokenization(tex) :
 
@@ -26,20 +47,11 @@ def tokenization(tex) :
 
     return tokenz
 
-tokens = tokenization(text)
+def posTagger(sent):
+    sent = nltk.pos_tag(sent)
+    return sent
 
-print(tokens)
 
-
-stop_words = set(stopwords.words('english'))
-filtered_text = [w for w in tokens if not w in stop_words]
-filtered_text = []
-
-for w in tokens:
-    if w not in stop_words:
-        filtered_text.append(w)
-
-print(filtered_text)
 
 
 
