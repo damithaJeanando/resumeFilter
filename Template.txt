@@ -1,0 +1,11 @@
+$name
+
+$address
+
+$phone
+
+$email
+
+$experience
+
+$education_qualification
