@@ -88,6 +88,7 @@ def extractName(sent):
     print(name)
     return name
 
+
 def extractAddress(sent):
     i = 0
     start = 0
@@ -141,30 +142,122 @@ def extractEmail(sent):
         email = email + " " + sent[start]
         start = start + 1
     return email
-#open file
-templatein = open( 'Template.txt' )
 
-#read file
-src = Template(templatein.read())
+def extractSkills(sent):
+    i = 0
+    start = 0
+    end = 0
+    skills = ""
+    for w in sent:
+        i = i + 1
+        if w == "SKILLS":
+            start = i
+        if w == "PROFILE":
+            end = i
+            break
 
-#data
-def extractData():
-    name = "Name: "+ extractName(tokens)
-    address = "Address:"+extractAddress(tokens)
-    phone = "Phone Number:"+extractPhoneNumber(tokens)
-    email = "Email:"+extractEmail(tokens)
-    experience = ['ewdwe','edwedew']
-    education_qualification = ['dedwde','dewdwed']
-    d = {'name':name, 'address':address, 'phone':phone, 'email':email, 'experience':'\n'.join(experience),'education_qualification':'\n'.join(education_qualification)}
+    while start < end - 1:
+        skills = skills + " " + sent[start]
+        start = start + 1
+    return skills
 
-    #substitution
-    result = src.substitute(d)
+def extractTitle(sent):
+    i = 0
+    start = 0
+    end = 0
+    title = ""
+    for w in sent:
+        i = i + 1
+        if w == sent[1]:
+            start = i
+        if w == "INFO":
+            end = i
+            break
 
-    print(result)
-    return result
+    while start < end - 1:
+        title = title + " " + sent[start]
+        start = start + 1
+    return title
+
+def extractExperience(sent):
+    i = 0
+    start = 0
+    end = 0
+    experience = ""
+    for w in sent:
+        i = i + 1
+        if w == "EMPLOYMENT":
+            start = i + 1
+        if w == "EDUCATION":
+            end = i
+            break
+
+    while start < end - 1:
+        experience = experience + " " + sent[start]
+        start = start + 1
+    return experience
+
+def extractEducation(sent):
+    i = 0
+    start = 0
+    end = 0
+    education = ""
+    for w in sent:
+        i = i + 1
+        if w == "EDUCATION":
+            start = i
+            end = len(sent)
+            break
+
+    while start < end:
+        education = education + " " + sent[start]
+        start = start + 1
+    return education
+# #open file
+# templatein = open( 'Template.txt' )
+#
+# #read file
+# src = Template(templatein.read())
+#
+# #data
+# def extractData():
+#     name = "Name:"+extractName(tokens)
+#     title = "Title:"
+#     address = "Address:"+extractAddress(tokens)
+#     phone = "Phone Number:"+extractPhoneNumber(tokens)
+#     email = "Email:"+extractEmail(tokens)
+#     skills = "Skills:"+extractSkills(tokens)
+#     experience = "Experience:"
+#     education_qualification = "Education Qualification:"
+#     d = {'name':name, 'title':title, 'address':address, 'phone':phone, 'email':email, 'skills':skills, 'experience':'\n'.join(experience),'education_qualification':'\n'.join(education_qualification)}
+#
+#     #substitution
+#     result = src.substitute(d)
+#
+#     print(result)
+#     return result
 
 
+def return_name():
+    return extractName(tokens)
 
+def return_title():
+    return extractTitle(tokens)
 
+def return_address():
+    return extractAddress(tokens)
 
+def return_phoneNumber():
+    return extractPhoneNumber(tokens)
 
+def return_email():
+    return extractEmail(tokens)
+
+def return_skills():
+    return extractSkills(tokens)
+
+def return_experience():
+    return extractExperience(tokens)
+
+def return_education():
+    return  extractEducation(tokens)

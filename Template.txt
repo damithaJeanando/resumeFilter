@@ -1,10 +1,14 @@
 $name
 
+$title
+
 $address
 
 $phone
 
 $email
+
+$skills
 
 $experience
 
